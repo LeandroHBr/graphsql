@@ -30,11 +30,10 @@ func (c *Category) Create(name string, description string) (Category, error) {
 
 func (c *Category) Query() ([]Category, error) {
 	Categories := []Category{}
-	row, err := c.db.Query("SELECT id,name,descrition FROM Category")
+	row, err := c.db.Query("SELECT id,name,description FROM Category")
 	if err != nil {
 		return nil, err
 	}
-	row.Close()
 
 	for row.Next() {
 		var id, name, description string
@@ -44,5 +43,6 @@ func (c *Category) Query() ([]Category, error) {
 		}
 		Categories = append(Categories, Category{Id: id, Name: name, Description: description})
 	}
+	row.Close()
 	return Categories, nil
 }

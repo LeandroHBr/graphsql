@@ -37,10 +37,12 @@ func (r *queryResolver) Category(ctx context.Context) ([]*model.Category, error)
 	var categoriesModel []*model.Category
 	for _, Category := range category {
 		categoriesModel = append(categoriesModel, &model.Category{
-			IDCategory: Category.Id,
-			Name:       Category.Name,
+			IDCategory:  Category.Id,
+			Name:        Category.Name,
+			Description: &Category.Description,
 		})
 	}
+	return categoriesModel, nil
 }
 
 // Course is the resolver for the Course field.
