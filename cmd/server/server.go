@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"graphql/graph"
 	"log"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	db, err := sql.Open("sqlite3", "./data.db")
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
