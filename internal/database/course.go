@@ -26,3 +26,21 @@ func (c *Course) CreateCourse(name string, description string, IDCategory string
 	}
 	return Course{Id: id, Name: name, Description: description, IDCategory: IDCategory}, nil
 }
+
+func (c *Course) Query_Course() ([]Course, error) {
+	row, err := c.db.Query("SELECT id,name,description,category FROM Courses")
+	if err != nil {
+		return nil, err
+	}
+	courses := []Course{}
+	for row.Next() {
+		var id, name, description, id_categories string
+		err2 := row.Scan(&id, &name, &description, &id_categories)
+		if err2 != nil {
+			return nil, err
+		}
+		courses = append(courses, Course{Id: id, Name: name, Description: description, IDCategory: id_categories})
+	}
+	row.Close()
+	return courses, nil
+}
