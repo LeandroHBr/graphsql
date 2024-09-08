@@ -12,14 +12,14 @@ import (
 
 // CreateCategory is the resolver for the CreateCategory field.
 func (r *mutationResolver) CreateCategory(ctx context.Context, input model.NewCategory) (*model.Category, error) {
-	Category, err := r.categoryDB.Create(input.Name, *input.Description)
+	category, err := r.CategoryDB.Create(input.Name, *input.Description)
 	if err != nil {
 		return nil, err
 	}
 	return &model.Category{
-		ID:          Category.ID,
-		Name:        Category.Name,
-		Description: &Category.description,
+		IDCategory:  category.Id,
+		Name:        category.Name,
+		Description: &category.Description,
 	}, nil
 }
 
