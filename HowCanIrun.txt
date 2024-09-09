@@ -1,0 +1,64 @@
+go run cmd/server/server.go
+
+test inputs:
+
+mutation CreateCategory{
+  CreateCategory(input:{name:"empreendedorism",
+    description:"make more money"}){
+    name
+    description
+  }
+}
+
+mutation CreateCourse{
+  CreateCourse(input:{name:"programing with go",
+    description:"lets learn more boult this beatful linguage",
+    id_category:"e59243a6-2fd4-4673-844f-38a38803f7f5"
+		}) {
+  		id
+ 			name
+  		description
+    }
+}
+
+
+query queryCategorie{
+  Category{
+    id_category
+    name
+    description
+  }
+}
+
+query QueryCourse{
+  Course{
+    id
+    name
+    description
+  }
+}
+
+query CoursefindByCategory{
+  Category{
+    id_category
+    name
+    description
+    courses{
+			id
+      name
+      description
+    }
+  }
+}
+
+query CategoryFindByCourse{
+  Course{
+    	name
+    	description
+    Category{
+      id_category
+    	name
+   		description
+    }
+  }
+}
