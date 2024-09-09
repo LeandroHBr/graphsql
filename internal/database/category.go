@@ -46,3 +46,15 @@ func (c *Category) Query() ([]Category, error) {
 	row.Close()
 	return Categories, nil
 }
+
+func (c *Category) Query_CategoryFindByCourse(CourseID string) (Category, error) {
+	var id, name, description string
+	err := c.db.QueryRow("SELECT c.id, c.name, c.description FROM Category c JOIN Courses co ON c.id = co.category WHERE co.id = $1", CourseID).Scan(&id, &name, &description)
+
+	if err != nil {
+		return Category{}, err
+	}
+
+	return Category{Id: id, Name: name, Description: description}, nil
+
+}

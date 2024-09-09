@@ -44,3 +44,21 @@ func (c *Course) Query_Course() ([]Course, error) {
 	row.Close()
 	return courses, nil
 }
+
+func (c *Course) Query_CourseFindByCategory(category_id string) ([]Course, error) {
+	row, err := c.db.Query("SELECT id,name,description,category FROM Courses WHERE category=$1", category_id)
+	if err != nil {
+		return nil, err
+	}
+	courses := []Course{}
+	for row.Next() {
+		var id, name, description, id_categories string
+		err2 := row.Scan(&id, &name, &description, &id_categories)
+		if err2 != nil {
+			return nil, err
+		}
+		courses = append(courses, Course{Id: id, Name: name, Description: description, IDCategory: id_categories})
+	}
+	row.Close()
+	return courses, nil
+}
